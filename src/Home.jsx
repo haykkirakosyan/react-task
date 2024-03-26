@@ -25,26 +25,17 @@ export default function Home(){
                         <ModalCloseButton />
                         <ModalBody>
                             <FormControl isRequired>
-                                <FormLabel>First name</FormLabel>
-                                <Input placeholder='First name' />
-                            </FormControl>
-                            <FormControl isRequired>
-                                <FormLabel>Last name</FormLabel>
-                                <Input placeholder='Last name' />
-                            </FormControl>
-                            <FormControl isRequired>
-                                <FormLabel>Country</FormLabel>
-                                <Input placeholder='Country' />
-                            </FormControl>
-                            <FormControl isRequired>
                                 <FormLabel>Email</FormLabel>
                                 <Input placeholder='Email' />
                             </FormControl>
-                
+                            <FormControl isRequired>
+                                <FormLabel>Password</FormLabel>
+                                <Input placeholder='Password' />
+                            </FormControl>              
                         </ModalBody>
                         <ModalFooter>
                             <Button colorScheme='blue' mr={3} onClick={onClose}>
-                                Loggin
+                                Submit
                             </Button>
                         </ModalFooter>
                     </ModalContent>
@@ -61,16 +52,16 @@ export default function Home(){
                         <ModalCloseButton />
                         <ModalBody>
                             <FormControl isRequired>
-                                <FormLabel>First name</FormLabel>
-                                <Input placeholder='First name' />
+                                <FormLabel>Name</FormLabel>
+                                <Input placeholder='Name' />
                             </FormControl>
                             <FormControl isRequired>
-                                <FormLabel>Last name</FormLabel>
-                                <Input placeholder='Last name' />
+                                <FormLabel>Password</FormLabel>
+                                <Input placeholder='password' />
                             </FormControl>
                             <FormControl isRequired>
-                                <FormLabel>Country</FormLabel>
-                                <Input placeholder='Country' />
+                                <FormLabel>Age</FormLabel>
+                                <Input placeholder='Age' />
                             </FormControl>
                             <FormControl isRequired>
                                 <FormLabel>Email</FormLabel>
@@ -80,7 +71,7 @@ export default function Home(){
                         </ModalBody>
                         <ModalFooter>
                             <Button colorScheme='blue' mr={3} onClick={onClose}>
-                                Loggin
+                                Submit
                             </Button>
                         </ModalFooter>
                     </ModalContent>
