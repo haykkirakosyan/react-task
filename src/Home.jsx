@@ -1,5 +1,7 @@
 import {Link} from 'react-router-dom';
 import {Input,FormLabel,FormControl,Box, Button, Center, Flex ,Image, useDisclosure, Modal,ModalBody,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalFooter} from '@chakra-ui/react';
+import { useState } from 'react';
+import { FormHelperText,FormErrorMessage } from '@chakra-ui/react';
 
 
 export default function Home(){
@@ -8,6 +10,27 @@ export default function Home(){
     )
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { isOpen: isSingUpOpen, onOpen: onSingUpOpen, onClose: onSingUpClose } = useDisclosure()
+    const [value,setValue] = useState("")
+    const handleChange = (e) => setValue(e.target.value)
+    const emailPattern = !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value)
+    const [password,setPassword] = useState("")
+    const passwordPattern = !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(password)   
+    const handlePasswordChange = (e) => setPassword(e.target.value)
+    const [formvalue,setFormvalue] = useState({name: "", password: "", age: 0, email: ""})
+    function handleFormValue(e){
+        setFormvalue(curr => ({
+            ...curr,
+            [e.target.name]: e.target.value
+        }))
+    }
+   
+    const namePattern = formvalue.name.length && !/^[a-z ,.'-]+$/i.test(formvalue.name)
+    const agePattern = formvalue.age.length &&  !/^\S[0-9]{0,3}$/.test(formvalue.age)
+    const passwordPattern2 = formvalue.password.length && !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(formvalue.password) 
+    const emailPattern2 = formvalue.email.length && !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(formvalue.email)
+    
+    
+   
 
     
     return(
@@ -24,13 +47,30 @@ export default function Home(){
                         <ModalHeader>Loggin page</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
-                            <FormControl isRequired>
+                            <FormControl isRequired  isInvalid={emailPattern}>
                                 <FormLabel>Email</FormLabel>
-                                <Input placeholder='Email' />
+                                <Input placeholder='Email' type='Email' value={value} onChange={handleChange} />
+                                {emailPattern ? (
+                                    <FormErrorMessage>Email is required</FormErrorMessage>
+                                
+                                 ) : (
+                                    <FormHelperText>
+                                    Your email is correct
+                                    </FormHelperText>
+                                )}
+                                
                             </FormControl>
-                            <FormControl isRequired>
+                            <FormControl isRequired isInvalid={passwordPattern}>
                                 <FormLabel>Password</FormLabel>
-                                <Input placeholder='Password' />
+                                <Input placeholder='Password' type='password' value={password }onChange={handlePasswordChange}/>
+                                {passwordPattern ? (
+                                    
+                                    <FormErrorMessage>Password should contain,letter,number and its length must be at list 6</FormErrorMessage>
+                                    
+                                ): (
+                                    <FormHelperText>Your password is correct</FormHelperText>
+                                    
+                                )}
                             </FormControl>              
                         </ModalBody>
                         <ModalFooter>
@@ -51,21 +91,52 @@ export default function Home(){
                         <ModalHeader>Sing Up</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
-                            <FormControl isRequired>
+                            <FormControl isRequired isInvalid={namePattern}>
                                 <FormLabel>Name</FormLabel>
-                                <Input placeholder='Name' />
+                                <Input  type="text" name='name' onChange={handleInvalid}/>
+                                {namePattern ? (
+                                    <FormErrorMessage>Incorrect</FormErrorMessage>
+                                    ) : (
+                                    <FormHelperText>
+                                    Enter your name
+                                    </FormHelperText>
+                                )}
                             </FormControl>
-                            <FormControl isRequired>
+                            <FormControl isRequired isInvalid={passwordPattern2}>
                                 <FormLabel>Password</FormLabel>
-                                <Input placeholder='password' />
+                                <Input type='password' name='password' onChange={handleFormValue}/>
+                                {passwordPattern2 ? (
+                                    <FormErrorMessage>Incorrect</FormErrorMessage>
+                                
+                                 ) : (
+                                    <FormHelperText>
+                                    Enter your password
+                                    </FormHelperText>
+                                )}
                             </FormControl>
-                            <FormControl isRequired>
+                            <FormControl isRequired isInvalid={agePattern}>
                                 <FormLabel>Age</FormLabel>
-                                <Input placeholder='Age' />
+                                <Input type='text' name='age' onChange={handleFormValue}/>
+                                {agePattern ? (
+                                    <FormErrorMessage>Incorrect</FormErrorMessage>
+                                
+                                 ) : (
+                                    <FormHelperText>
+                                    Enter your age
+                                    </FormHelperText>
+                                )}
                             </FormControl>
-                            <FormControl isRequired>
+                            <FormControl isRequired isInvalid={emailPattern2}>
                                 <FormLabel>Email</FormLabel>
-                                <Input placeholder='Email' />
+                                <Input type='email' name='email' onChange={handleFormValue}/>
+                                {emailPattern2 ? (
+                                    <FormErrorMessage>Incorrect</FormErrorMessage>
+                                
+                                 ) : (
+                                    <FormHelperText>
+                                    Enter your email
+                                    </FormHelperText>
+                                )}
                             </FormControl>
                 
                         </ModalBody>
