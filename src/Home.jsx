@@ -12,11 +12,11 @@ export default function Home(){
     )
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { isOpen: isSingUpOpen, onOpen: onSingUpOpen, onClose: onSingUpClose } = useDisclosure()
-    const [value,setValue] = useState("")
-    const handleChange = (e) => setValue(e.target.value)
-    const emailPattern = value.length &&!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(value)
+    const [email,setEmail] = useState("")
+    const handleChange = (e) => setEmail(e.target.value)
+    const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
     const [password,setPassword] = useState("")
-    const passwordPattern = password.length && !/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(password)   
+    const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(password)   
     const handlePasswordChange = (e) => setPassword(e.target.value)
     const [formvalue,setFormvalue] = useState({name: "", password: "", age: 0, email: ""})
     function handleFormValue(e){
@@ -33,11 +33,12 @@ export default function Home(){
     const isSubmitDisabled = !namePattern || !agePattern || !passwordPattern2 || !emailPattern2
     
     function handleFormSubmit(){
-        history.push("/logged-in")
-        
-
+        history.push("/sing-up")
     }
-   
+    const logginSubmitDisabled = !emailPattern || !passwordPattern
+   function handleLogginSubmit(){
+    history.push("/logged-in")
+   }
 
     
     return(
@@ -54,34 +55,35 @@ export default function Home(){
                         <ModalHeader>Loggin page</ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
-                            <FormControl isRequired  isInvalid={emailPattern}>
-                                <FormLabel>Email</FormLabel>
-                                <Input placeholder='Email' type='Email' value={value} onChange={handleChange} />
-                                {emailPattern ? (
-                                    <FormErrorMessage>Incorrect</FormErrorMessage>
-                                
-                                 ) : (
-                                    <FormHelperText>
-                                    Your email is correct
-                                    </FormHelperText>
-                                )}
-                                
-                            </FormControl>
-                            <FormControl isRequired isInvalid={passwordPattern}>
-                                <FormLabel>Password</FormLabel>
-                                <Input placeholder='Password' type='password' value={password }onChange={handlePasswordChange}/>
-                                {passwordPattern ? (
+                            <form onSubmit={handleLogginSubmit}>
+                                <FormControl isRequired  isInvalid={ email.length && !emailPattern}>
+                                    <FormLabel>Email</FormLabel>
+                                    <Input placeholder='Email' type='email' value={email} onChange={handleChange} />
+                                    { email.length && !emailPattern ? (
+                                        <FormErrorMessage>Incorrect</FormErrorMessage>
                                     
-                                    <FormErrorMessage>Incorrect</FormErrorMessage>
+                                    ) : (
+                                        <FormHelperText>
+                                        Write your email
+                                        </FormHelperText>
+                                    )}
                                     
-                                ): (
-                                    <FormHelperText>Your password is correct</FormHelperText>
-                                    
-                                )}
-                            </FormControl>              
+                                </FormControl>
+                                <FormControl isRequired isInvalid={password.length && !passwordPattern}>
+                                    <FormLabel>Password</FormLabel>
+                                    <Input placeholder='Password' type='password' value={password} onChange={handlePasswordChange}/>
+                                    {password.length && !passwordPattern ? (
+                                        <FormErrorMessage>Incorrect</FormErrorMessage>
+                                        
+                                    ): (
+                                        <FormHelperText>Write your password</FormHelperText>
+                                        
+                                    )}
+                                </FormControl>              
+                            </form>
                         </ModalBody>
                         <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                            <Button colorScheme='blue' mr={3} onClick={handleLogginSubmit} isDisabled={logginSubmitDisabled}>
                                 Submit
                             </Button>
                         </ModalFooter>
