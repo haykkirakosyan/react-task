@@ -2,6 +2,7 @@ import {useHistory} from 'react-router-dom';
 import {Input,FormLabel,FormControl,Box, Button, Center, Flex ,Image, useDisclosure, Modal,ModalBody,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalFooter} from '@chakra-ui/react';
 import { useState } from 'react';
 import { FormHelperText,FormErrorMessage } from '@chakra-ui/react';
+import LoginModal from '../Components/Modals/LoginModal';
 
 
 export default function Home(){
@@ -12,12 +13,6 @@ export default function Home(){
     )
     const { isOpen, onOpen, onClose } = useDisclosure()
     const { isOpen: isSingUpOpen, onOpen: onSingUpOpen, onClose: onSingUpClose } = useDisclosure()
-    const [email,setEmail] = useState("")
-    const handleChange = (e) => setEmail(e.target.value)
-    const emailPattern = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email)
-    const [password,setPassword] = useState("")
-    const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/.test(password)   
-    const handlePasswordChange = (e) => setPassword(e.target.value)
     const [formvalue,setFormvalue] = useState({name: "", password: "", age: 0, email: ""})
     function handleFormValue(e){
         setFormvalue(curr => ({
@@ -35,8 +30,8 @@ export default function Home(){
     function handleFormSubmit(){
         history.push("/sing-up")
     }
-    const logginSubmitDisabled = !emailPattern || !passwordPattern
-   function handleLogginSubmit(){
+    
+   function handleLoginSubmit(){
     history.push("/logged-in")
    }
 
@@ -49,46 +44,7 @@ export default function Home(){
             </Flex>
             <Center pt="225">               
                 <Button colorScheme='teal' variant="solid" size='md' height='40px' width='400px' onClick={onOpen} >Loggin</Button>
-                <Modal isOpen={isOpen} onClose={onClose}>
-                    <ModalOverlay />
-                    <ModalContent>
-                        <ModalHeader>Loggin page</ModalHeader>
-                        <ModalCloseButton />
-                        <ModalBody>
-                            <form onSubmit={handleLogginSubmit}>
-                                <FormControl isRequired  isInvalid={ email.length && !emailPattern}>
-                                    <FormLabel>Email</FormLabel>
-                                    <Input placeholder='Email' type='email' value={email} onChange={handleChange} />
-                                    { email.length && !emailPattern ? (
-                                        <FormErrorMessage>Incorrect</FormErrorMessage>
-                                    
-                                    ) : (
-                                        <FormHelperText>
-                                        Write your email
-                                        </FormHelperText>
-                                    )}
-                                    
-                                </FormControl>
-                                <FormControl isRequired isInvalid={password.length && !passwordPattern}>
-                                    <FormLabel>Password</FormLabel>
-                                    <Input placeholder='Password' type='password' value={password} onChange={handlePasswordChange}/>
-                                    {password.length && !passwordPattern ? (
-                                        <FormErrorMessage>Incorrect</FormErrorMessage>
-                                        
-                                    ): (
-                                        <FormHelperText>Write your password</FormHelperText>
-                                        
-                                    )}
-                                </FormControl>              
-                            </form>
-                        </ModalBody>
-                        <ModalFooter>
-                            <Button colorScheme='blue' mr={3} onClick={handleLogginSubmit} isDisabled={logginSubmitDisabled}>
-                                Submit
-                            </Button>
-                        </ModalFooter>
-                    </ModalContent>
-                </Modal>
+                <LoginModal  isOpen= {isOpen} onClose={onClose} handleLoginSubmit={handleLoginSubmit} />
                 
             </Center>
             <Box as='span' display="flex" justifyContent="center">

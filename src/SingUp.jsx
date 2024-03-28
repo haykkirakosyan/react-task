@@ -13,14 +13,13 @@ export default function SingUp(){
                     <Image as={googleLoggo}/>
                         Google
                     </Button>
-                    <Box display="flex" alignItems="center" mt="1rem" mb="1rem" >
-                        <Divider orientation="horizontal"/>
-                    </Box>
-
                 </Box>
-
+                <Box w="400px" h="21px" display="flex" alignItems="center" mt="1rem" mb="1rem" >
+                        <Divider orientation="horizontal" w="100%"
+                        />
+                        <Text me="0.5rem" ms="0.5rem">Or</Text>
+                </Box>
             </Box>
-
         </Flex>
     )
 }
