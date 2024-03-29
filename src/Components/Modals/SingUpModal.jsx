@@ -2,10 +2,10 @@ import { useState } from "react"
 import { FormHelperText,FormErrorMessage } from '@chakra-ui/react';
 import {Input,FormLabel,FormControl,Box, Button, Center, Flex ,Image, useDisclosure, Modal,ModalBody,ModalOverlay,ModalContent,ModalHeader,ModalCloseButton,ModalFooter} from '@chakra-ui/react';
 
-const NAME_PATTERN = /^[a-z ,.'-]+$/i
-const AGE_PATTERN = /^\S[0-9]{0,3}$/
-const PASSWORD_PATTERN = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/
-const EMAIL_PATTERN = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+const NAME_PATTERN = /^[a-z ,.'-]+$/i;
+const AGE_PATTERN = /^\S[0-9]{0,3}$/;
+const PASSWORD_PATTERN = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/;
+const EMAIL_PATTERN = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 export default function SingUpModal({isSingUpOpen,onSingUpClose,handleFormSubmit}){
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
