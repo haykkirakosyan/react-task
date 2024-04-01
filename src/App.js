@@ -2,9 +2,9 @@ import logo from './logo.svg';
 import './App.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import {BrowserRouter as Router, Route,Switch} from 'react-router-dom';
-import Home from './Home';
-import LoggedIn from './LoggedIn';
-import SingUp from './SingUp';
+import Home from './Pages/Home';
+import LoggedIn from './Pages/LoggedIn';
+import SingUp from './Pages/SingUp';
 
 
 
