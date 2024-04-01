@@ -25,13 +25,22 @@ export default function Home(){
             </Flex>
             <Center pt="225">               
                 <Button colorScheme='teal' variant="solid" size='md' height='40px' width='400px' onClick={onOpen} >Loggin</Button>
-                <LoginModal  isOpen= {isLoginModalOpen} onClose={onLoginModalClose} handleLoginSubmit={handleLoginSubmit} />
             </Center>
             <Box as='span' display="flex" justifyContent="center">
                 Don’t have an account?
             <Button colorScheme='teal' variant="link" onClick={onSingUpOpen}>Sing up</Button>
-            <SingUpModal isSingUpOpen={isSingUpOpen} onSingUpClose={onSingUpClose} handleSubmit={handleSingupSubmit}/>
             </Box>
+                {
+                    isLoginModalOpen && (
+                        <LoginModal  isOpen= {isLoginModalOpen} onClose={onLoginModalClose} handleLoginSubmit={handleLoginSubmit} />   
+                    )
+                }
+                {
+                    isSingUpOpen && (
+                        <SingUpModal isSingUpOpen={isSingUpOpen} onSingUpClose={onSingUpClose} handleSubmit={handleSingupSubmit}/>
+                    )
+                }
+
         </Box>
        
 
